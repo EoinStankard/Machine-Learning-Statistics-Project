@@ -14,22 +14,23 @@
     <title>Hello, world!</title>
   </head>
   <body>
-    <h1>Hello, from Power.html!</h1>
+    <h1><center>Power Production MLS</center></h1>
     <div class="container">
         <div class="row">
           <div class="col-sm">
-            <input class="form-control" id="output" type="text" placeholder="Random number here.." readonly>
+          <!--  <input class="form-control" id="output" type="text" placeholder="Random number here.." readonly>-->
+            <input type="number" id ="WSP" placeholder="Enter wind speed here..">
+            <button type="button" class="btn btn-success" onclick="addRow()">Calculate Turbine Power</button>
           </div>
         </div>
-        <div class="row">
-          <div class="col-sm">
-            <button type="button" class="btn btn-success" id="uniform-button">Uniform</button>
-          </div>
-          <div class="col-sm">
-            <button type="button" class="btn btn-primary" id="normal-button">Normal</button>
-          </div>
+        <div>
+          <table id="outputsTable" class="table">
+            <tr>
+                <th>ID</th><th>Wind Speed</th><th>Wind Turbine Power</th><th>Date</th><th>Time</th>
+            </tr>                    
+          </table>
         </div>
-      </div>
+    </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
 
@@ -46,19 +47,37 @@
 
 
     <script>
+        var num = 0;
         // Adapted from stack overflow posts.
-        $("#normal-button").click(function(e) {
-            e.preventDefault();
-            $.getJSON("/api/normal", function(data) {
-                $('#output').val(data.value);
-            });
-        });
         $("#uniform-button").click(function(e) {
             e.preventDefault();
             $.getJSON("/api/uniform", function(data) {
                 $('#output').val(data.value);
             });
         });
+
+
+        function addRow(){
+          var dt = new Date();
+          if (document.getElementById("WSP").value == ""){
+
+          }else{
+                num = num+1
+                tableElem = document.getElementById("outputsTable")
+                rowElem = tableElem.insertRow(-1)
+                rowElem.setAttribute("id", num)
+                cell1 = rowElem.insertCell(0)
+                cell1.innerHTML = num
+                cell2 = rowElem.insertCell(1)
+                cell2.innerHTML = document.getElementById("WSP").value
+                cell3 = rowElem.insertCell(2)
+                cell3.innerHTML = "To Be Done"
+                cell4 = rowElem.insertCell(3)
+                cell4.innerHTML = dt.toLocaleDateString()
+                cell5 = rowElem.insertCell(4)
+                cell5.innerHTML = dt.toLocaleTimeString()
+          }        
+        }
     </script>
   </body>
 </html>
