@@ -20,7 +20,7 @@
           <div class="col-sm">
           <!--  <input class="form-control" id="output" type="text" placeholder="Random number here.." readonly>-->
             <input type="number" id ="WSP" placeholder="Enter wind speed here..">
-            <button type="button" class="btn btn-success" onclick="addRow()">Calculate Turbine Power</button>
+            <button type="button" class="btn btn-success" id="predict">Calculate Turbine Power</button>
           </div>
         </div>
         <div>
@@ -49,10 +49,12 @@
     <script>
         var num = 0;
         // Adapted from stack overflow posts.
-        $("#uniform-button").click(function(e) {
+        $("#predict").click(function(e) {
             e.preventDefault();
-            $.getJSON("/api/uniform", function(data) {
-                $('#output').val(data.value);
+            $.getJSON("/api/predict", function(data) {
+                console.log("DATA: "+data.value)
+                $('#WSP').val(data.value);
+                addRow()
             });
         });
 
@@ -71,7 +73,7 @@
                 cell2 = rowElem.insertCell(1)
                 cell2.innerHTML = document.getElementById("WSP").value
                 cell3 = rowElem.insertCell(2)
-                cell3.innerHTML = "To Be Done"
+                cell3.innerHTML = "To Be Dones2"
                 cell4 = rowElem.insertCell(3)
                 cell4.innerHTML = dt.toLocaleDateString()
                 cell5 = rowElem.insertCell(4)
