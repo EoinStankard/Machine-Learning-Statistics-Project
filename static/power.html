@@ -13,6 +13,12 @@
 
     <title>G00300390 - Power Production MLS</title>
   </head>
+  <style>
+    .err{
+      color:red
+    }
+  </style>
+
   <body>
     <h1><center>Power Production MLS</center></h1>
     <div class="container">
@@ -21,9 +27,10 @@
           <!--  <input class="form-control" id="output" type="text" placeholder="Random number here.." readonly>-->
             Enter Wind Speed: 
             <input type="number" id ="WSP" placeholder="Enter wind speed here..">
-            <button type="button" class="btn btn-success" id="predict">Calculate Turbine Power</button><br>
-            Calculated Power: 
-            <input type="text" id="CalcPwr" placeholder="Calculated Power" readonly>
+            <button type="button" class="btn btn-success" id="predict">Calculate Turbine Power</button><br><p id="Err" class="err"></p>
+            Calculated Power:   
+            <input type="text" id="CalcPwr" placeholder="Calculated Power" readonly><br>
+            
           </div>
         </div>
         <div>
@@ -54,12 +61,17 @@
         // Adapted from stack overflow posts.
         $("#predict").click(function(e) {
             e.preventDefault();
-             sp = document.getElementById("WSP").value
-            $.getJSON("/api/predict/"+sp, function(data) {
+            sp = document.getElementById("WSP").value
+            if (sp == ""){
+              document.getElementById("Err").innerHTML ="Please enter wind speed"
+            }else{
+              $.getJSON("/api/predict/"+sp, function(data) {
                 console.log("DATA: "+data.value)
                 $('#CalcPwr').val(data.value);
                 addRow()
-            });
+                document.getElementById("Err").innerHTML =""
+             });
+            }
         });
 
 
