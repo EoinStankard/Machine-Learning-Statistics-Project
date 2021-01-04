@@ -7,6 +7,7 @@ from tensorflow import keras as kr
 import sklearn.preprocessing as pre
 import sklearn.model_selection as mod
 import pandas as pd
+from pathlib import Path
 
 # Create a new web app.
 app = fl.Flask(__name__)
@@ -24,10 +25,16 @@ def turbinePower(speed):
     ss = float(speed)
     print("SPEED: ",ss)
     s = float(modelSaved.predict([ss]))
-    print("PREDICTED: ",s)
-    return {"value": s}
+    if ss > 0.0 and ss < 25 and s > 0:
+      print("PREDICTED: ",s)
+      return {"value": s}
+    else:
+      return {"value": 0}
 
 def createModel():
+  if Path('powerProductionModel.h5').is_file():
+    print ("File exist")
+  else:
     df = pd.read_csv("powerproduction.csv")
     inputs_train, inputs_test, outputs_train, outputs_test = mod.train_test_split(df['speed'], df['power'], test_size=0.2)
     model = kr.models.Sequential()
@@ -36,6 +43,6 @@ def createModel():
     model.compile(kr.optimizers.Adam(lr=0.001), loss='mean_squared_error')
     model.fit(inputs_train, outputs_train, epochs=500)
     model.save('powerProductionModel.h5')
-    s = float(model.predict([8.238]))
+    #s = float(model.predict([8.238]))
 
-#createModel()
+createModel()
