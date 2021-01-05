@@ -1,3 +1,5 @@
+# https://linuxize.com/post/python-check-if-file-exists/
+
 # flask for web app.
 import flask as fl
 # numpy for numerical work.
