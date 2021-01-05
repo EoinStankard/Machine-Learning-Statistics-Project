@@ -6,8 +6,6 @@ import flask as fl
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras as kr
-import sklearn.preprocessing as pre
-import sklearn.model_selection as mod
 import pandas as pd
 from pathlib import Path
 
