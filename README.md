@@ -26,3 +26,8 @@ I recommend that you download and run the assignment on your own machine as erro
 
 1. Anaconda Python as it contains all libraries
 2. The Repo will need to be cloned or downloaded
+
+## How to run on Windows
+set FLASK_APP=power.py
+
+python -m flask run
