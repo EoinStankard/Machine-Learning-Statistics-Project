@@ -28,6 +28,12 @@ I recommend that you download and run the assignment on your own machine as erro
 2. The Repo will need to be cloned or downloaded
 
 ## How to run on Windows
-set FLASK_APP=power.py
+#### FLASK
+1. set FLASK_APP=power.py
+2. python -m flask run<br/>
+**App will run on http://127.0.0.1/**
 
-python -m flask run
+#### DOCKER
+1. docker build . -t power
+2. docker run -d -p 5000:5000 power <br/>
+**App will run on http://127.0.0.1/:5000**
