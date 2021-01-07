@@ -21,16 +21,21 @@ def home():
 # Add uniform route.
 @app.route('/api/predict/<speed>')
 def turbinePower(speed):
-    modelSaved = kr.models.load_model('powerProductionModel.h5')
-    #print("£££££££££££££££££££££££££  SPEED: ", float(speed))
-    ss = float(speed)
-    print("SPEED: ",ss)
-    s = float(modelSaved.predict([ss]))
-    if ss > 0.0 and ss < 25 and s > 0:
-      print("PREDICTED: ",s)
-      return {"value": s}
-    else:
-      return {"value": 0}
+  if Path('powerProductionModel.h5').is_file():
+    print ("File exist")
+  else:
+    createModel()
+
+  modelSaved = kr.models.load_model('powerProductionModel.h5')
+  #print("£££££££££££££££££££££££££  SPEED: ", float(speed))
+  ss = float(speed)
+  print("SPEED: ",ss)
+  s = float(modelSaved.predict([ss]))
+  if ss > 0.0 and ss < 25 and s > 0:
+    print("PREDICTED: ",s)
+    return {"value": s}
+  else:
+    return {"value": 0}
 
 def createModel():
   if Path('powerProductionModel.h5').is_file():
