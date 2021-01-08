@@ -37,6 +37,9 @@ def turbinePower(speed):
   else:
     return {"value": 0}
 
+
+# Function that creates the model from the powerproduction.csv file
+# Fucntion checks to see if the powerProductionModel.h5 file is in the directory, If not it will generate a new model
 def createModel():
   if Path('powerProductionModel.h5').is_file():
     print ("File exist")

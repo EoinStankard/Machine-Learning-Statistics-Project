@@ -57,8 +57,12 @@
 
 
     <script>
-        var num = 0;
-        // Adapted from stack overflow posts.
+        var num = 0; // Stores the ID count
+
+
+        // fucntion that is called when "Calculate turbine power is pressed"
+        // Connects to power.py to calculate a result that is taken from a model
+        // If the user does not enter anything error message is shown
         $("#predict").click(function(e) {
             e.preventDefault();
             sp = document.getElementById("WSP").value
@@ -74,27 +78,26 @@
             }
         });
 
-
+        /*
+        Adds a row to the HTML file,
+        Inputs the Row ID, Wind speed, Turbine power, Date and Time
+        */
         function addRow(){
           var dt = new Date();
-          if (document.getElementById("WSP").value == ""){
-
-          }else{
-                num = num+1
-                tableElem = document.getElementById("outputsTable")
-                rowElem = tableElem.insertRow(-1)
-                rowElem.setAttribute("id", num)
-                cell1 = rowElem.insertCell(0)
-                cell1.innerHTML = num
-                cell2 = rowElem.insertCell(1)
-                cell2.innerHTML = document.getElementById("WSP").value
-                cell3 = rowElem.insertCell(2)
-                cell3.innerHTML = document.getElementById("CalcPwr").value
-                cell4 = rowElem.insertCell(3)
-                cell4.innerHTML = dt.toLocaleDateString()
-                cell5 = rowElem.insertCell(4)
-                cell5.innerHTML = dt.toLocaleTimeString()
-          }        
+          num = num+1
+          tableElem = document.getElementById("outputsTable")
+          rowElem = tableElem.insertRow(-1)
+          rowElem.setAttribute("id", num)
+          cell1 = rowElem.insertCell(0)
+          cell1.innerHTML = num
+          cell2 = rowElem.insertCell(1)
+          cell2.innerHTML = document.getElementById("WSP").value
+          cell3 = rowElem.insertCell(2)
+          cell3.innerHTML = document.getElementById("CalcPwr").value
+          cell4 = rowElem.insertCell(3)
+          cell4.innerHTML = dt.toLocaleDateString()
+          cell5 = rowElem.insertCell(4)
+          cell5.innerHTML = dt.toLocaleTimeString()           
         }
     </script>
   </body>
